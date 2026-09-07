@@ -1,0 +1,1630 @@
+:root {
+  --aspect-w: 4;
+  --aspect-h: 3;
+  color-scheme: light;
+  --bg: #d8dbe1;
+  --surface: #f4f5f8;
+  --surface-2: #eceef2;
+  --cabinet: #f3f4f7;
+  --cabinet-dark: #e4e6ec;
+  --glass: #050608;
+  --line: #c5c9d0;
+  --line-soft: rgba(40, 48, 60, 0.1);
+  --text: #3f434a;
+  --muted: #6e7380;
+  --dim: #8b909a;
+  --green: #3ec6f0;
+  --amber: #e39a3a;
+  --red: #e24b4b;
+  --blue: #1aa6d6;
+  --cyan: #3ec6f0;
+  --cyan-deep: #1aa6d6;
+  --button: #f7f8fb;
+  --button-hover: #ffffff;
+  --focus: #3ec6f0;
+  --plastic: #eef0f4;
+  --horizon: rgba(80, 210, 245, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  /* Brushed-aluminum wall from the Wii Menu: faint horizontal banding,
+     lighter at the top, a cool gray floor at the bottom. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, transparent 34%, rgba(70, 80, 95, 0.16) 100%),
+    repeating-linear-gradient(
+      180deg,
+      #e8eaee 0 3px,
+      #dfe2e8 3px 6px
+    );
+  color: var(--text);
+  font-family:
+    "Trebuchet MS", "Segoe UI", "Avenir Next", "Nunito Sans",
+    ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+.file-button,
+select {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, var(--button));
+  color: var(--text);
+  box-shadow: 0 1px 0 #fff inset, 0 2px 0 #c5c9d0;
+}
+
+button,
+.file-button {
+  cursor: pointer;
+  min-height: 38px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease,
+    transform 120ms ease;
+}
+
+button:hover,
+.file-button:hover,
+select:hover {
+  background: linear-gradient(180deg, #ffffff, #f2f4f8);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(62, 198, 240, 0.28), 0 1px 0 #fff inset;
+}
+
+button:active,
+.file-button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible,
+.file-button:focus-within,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+button.active {
+  border-color: var(--cyan-deep);
+  color: var(--cyan-deep);
+  background: linear-gradient(180deg, #e7f8fe, #d5f0fb);
+  box-shadow: 0 0 0 3px rgba(62, 198, 240, 0.35), 0 1px 0 #fff inset;
+}
+
+select {
+  width: 100%;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 12px;
+}
+
+code {
+  color: var(--cyan-deep);
+  font-size: 0.92em;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.app-shell {
+  /* Workspace fills the screen; the Wii Menu dock is a fixed-height row.
+     Overlay options do not participate in this grid. */
+  height: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.topbar {
+  min-height: 72px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(232, 235, 240, 0.72));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 1px 0 rgba(80, 90, 100, 0.12);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #f4f6f8 0 34%, transparent 36%),
+    conic-gradient(from 120deg, #c5c9d0, #ffffff 22%, #9aa0aa 48%, #ffffff 72%, #c5c9d0);
+  box-shadow:
+    0 0 0 3px #eef0f4,
+    0 0 0 5px var(--cyan),
+    0 4px 10px rgba(40, 50, 60, 0.18);
+  flex: 0 0 auto;
+}
+
+.mark i {
+  display: none;
+}
+
+.wii-clock {
+  text-align: center;
+  min-width: 128px;
+  color: var(--muted);
+}
+
+.wii-clock strong {
+  display: block;
+  font-size: 1.32rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.wii-clock span {
+  font-size: 0.82rem;
+}
+
+h1 {
+  font-size: 1.34rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.brand p {
+  color: var(--muted);
+  margin-top: 3px;
+  font-size: 0.86rem;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-pill {
+  border: 1px solid rgba(26, 166, 214, 0.4);
+  border-radius: 999px;
+  color: var(--cyan-deep);
+  background: rgba(62, 198, 240, 0.12);
+  padding: 7px 12px;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.status-pill.paused {
+  color: #b36b12;
+  border-color: rgba(227, 154, 58, 0.5);
+  background: rgba(227, 154, 58, 0.14);
+}
+
+.status-pill.error {
+  color: var(--red);
+  border-color: rgba(226, 75, 75, 0.45);
+  background: rgba(226, 75, 75, 0.12);
+}
+
+.icon-button {
+  min-width: 46px;
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.play-area {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 24px 0;
+  overflow: hidden;
+}
+
+.wii-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  height: 110px;
+  pointer-events: none;
+  background: radial-gradient(ellipse 72% 100% at 50% 100%, var(--horizon), transparent 72%);
+}
+
+.crt-set {
+  position: relative;
+  z-index: 1;
+  flex: 0 1 auto;
+  max-height: 100%;
+  /* Fit to whichever dimension runs out first, live: the width the available
+     height allows at the chosen ratio, or the column width. Both terms are
+     relative units, so dragging the window resizes the console continuously
+     with no JS. The 1.32 fudge this replaced was 4:3 baked in, which meant
+     16:9 could not use the extra width. --crt-chrome is the header, LCD strip
+     and footer that sit outside the picture. */
+  width: min(100%, calc((100dvh - var(--crt-chrome, 210px)) * var(--aspect-w, 4) / var(--aspect-h, 3)));
+  /* No fixed cap: at 16:9 the console should be free to fill a wide window. */
+  max-width: 100%;
+  min-width: min(100%, 360px);
+  border: 1px solid #c9ced6;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f3f5f8 42%, #e4e7ed 100%);
+  box-shadow:
+    0 22px 48px rgba(50, 60, 75, 0.22),
+    0 1px 0 #fff inset,
+    0 0 0 1px rgba(255, 255, 255, 0.85) inset;
+  padding: 14px 18px 12px;
+}
+
+.crt-set.dragging {
+  border-color: var(--cyan);
+  box-shadow:
+    0 22px 48px rgba(50, 60, 75, 0.22),
+    0 0 0 4px rgba(62, 198, 240, 0.4),
+    0 1px 0 #fff inset;
+}
+
+.channel-banner {
+  width: min(70%, 560px);
+  max-width: calc(100% - 16px);
+  margin: 18px auto 12px;
+  padding: 10px 28px 8px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #5ed6f6, #1aa6d6);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 50, 80, 0.25);
+  box-shadow: 0 3px 0 rgba(12, 90, 120, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.channel-banner strong {
+  font-weight: 700;
+}
+
+.channel-banner #lcdTitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  opacity: 0.92;
+  text-transform: uppercase;
+}
+
+.crt-bezel {
+  border: 1px solid #d5d8de;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, #f7f8fb, #e8ebf0);
+  padding: 14px;
+  box-shadow: 0 1px 0 #fff inset;
+}
+
+.screen-viewport {
+  position: relative;
+  /* Driven by the aspect selector; fullscreen reuses the same numbers to
+     compute a fit against the real display. */
+  aspect-ratio: var(--aspect-w, 4) / var(--aspect-h, 3);
+  border: 2px solid #1b1d22;
+  border-radius: 12px;
+  background: var(--glass);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 4px #dfe3ea,
+    0 10px 24px rgba(0, 0, 0, 0.28) inset;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+  background: #050505;
+}
+
+.blank-probe-notice {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: min(76%, 560px);
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(231, 183, 90, 0.72);
+  border-radius: 8px;
+  background: rgba(20, 16, 7, 0.92);
+  color: var(--amber);
+  padding: 14px 18px;
+  font-size: clamp(0.82rem, 2vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  pointer-events: none;
+}
+
+.scanlines {
+  display: none;
+}
+
+.screen-osd {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  max-width: calc(100% - 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.screen-osd span {
+  min-height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 5px;
+  background: rgba(4, 6, 5, 0.68);
+  color: #dfe8d7;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+}
+
+.screen-osd strong {
+  color: #73d18b;
+}
+
+.drop-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #4a4e56;
+  padding: 7px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* The transport now lives in this row, between the power light and the volume
+   dial, so the keys read as part of the console rather than a toolbar parked
+   under it. The speaker grille is gone -- the keys occupy that span. */
+.crt-footer {
+  min-height: 42px;
+  display: grid;
+  /* power light | transport (flexes) | aspect | volume dial */
+  grid-template-columns: 18px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding-top: 11px;
+}
+
+.power-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(62, 198, 240, 0.9);
+  justify-self: center;
+}
+
+.speaker-grille {
+  height: 20px;
+  border-radius: 5px;
+  opacity: 0.72;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.42) 0,
+      rgba(0, 0, 0, 0.42) 2px,
+      transparent 2px,
+      transparent 9px
+    );
+}
+
+.control-knobs {
+  display: inline-flex;
+  gap: 9px;
+}
+
+.control-knobs i {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #181814;
+  border-radius: 50%;
+  background:
+    linear-gradient(90deg, transparent 45%, rgba(0, 0, 0, 0.38) 45% 55%, transparent 55%),
+    #4a4d43;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Was a 6-column grid sized for text labels, which stretched the icon keys
+   across the full width. Icons want intrinsic width; only the labelled
+   "Open disc" key earns extra room. */
+.transport {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.file-button {
+  position: relative;
+  /* No overflow:hidden -- it clipped the hover tooltip, which is why the
+     upload-state key had no bubble. The file input inside is already
+     absolutely positioned at opacity 0, so nothing needs clipping. */
+  white-space: nowrap;
+}
+
+.file-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.touch-controls {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.touch-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 6px;
+}
+
+.touch-dpad button[data-touch-button="D_UP"] {
+  grid-column: 2;
+}
+
+.touch-dpad button[data-touch-button="D_LEFT"] {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.touch-dpad button[data-touch-button="D_RIGHT"] {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.touch-dpad button[data-touch-button="D_DOWN"] {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.touch-face {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.touch-face button {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  padding: 0;
+  font-weight: 800;
+}
+
+.touch-face button[data-touch-button="A"] {
+  background: linear-gradient(180deg, #7fe0f8, #1aa6d6);
+  color: #fff;
+  border-color: #1489b4;
+}
+
+.touch-face button[data-touch-button="B"] {
+  background: linear-gradient(180deg, #f07a7a, #c43b3b);
+  color: #fff;
+  border-color: #a12d2d;
+}
+
+.keyboard-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.control-panel {
+  position: fixed;
+  z-index: 40;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 32px));
+  max-height: min(78vh, 760px);
+  border: 1px solid #c9ced6;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(232, 236, 242, 0.97));
+  padding: 22px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 28px 80px rgba(40, 50, 70, 0.32), 0 1px 0 #fff inset;
+  scrollbar-width: thin;
+  scrollbar-color: #b0b6c0 transparent;
+}
+
+body:not(.panel-hidden)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: rgba(50, 60, 75, 0.28);
+}
+
+.control-panel::-webkit-scrollbar {
+  width: 10px;
+}
+
+.control-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+  background: #b0b6c0;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.panel-block,
+.settings-panel {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+}
+
+.debug-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.debug-panel .panel-block:last-child,
+.control-panel > .panel-block:last-child,
+.settings-panel:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+.section-heading span {
+  color: var(--cyan-deep);
+  font-size: 0.78rem;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.game-title {
+  font-size: 1.02rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.muted {
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+.compact {
+  font-size: 0.88rem;
+}
+
+.setting-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.setting-grid label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.setting-grid label > span,
+.switch-line span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.toggle-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.switch-line {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0 10px;
+  box-shadow: 0 1px 0 #fff inset;
+}
+
+.switch-line input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--cyan-deep);
+}
+
+.settings-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#settingsApplyButton {
+  background: linear-gradient(180deg, #5ed6f6, #1aa6d6);
+  color: #fff;
+  border-color: #1489b4;
+  box-shadow: 0 2px 0 #0e6e94, inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+#settingsApplyButton:hover {
+  background: linear-gradient(180deg, #73ddf8, #1fb0e0);
+  color: #fff;
+  border-color: #1489b4;
+}
+
+.metric-row {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(40, 48, 60, 0.08);
+}
+
+.metric-row span {
+  color: var(--muted);
+}
+
+.metric-row strong {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  overflow-wrap: anywhere;
+  max-width: 62%;
+}
+
+.root-entry-list {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.root-entry,
+.root-entry-empty {
+  min-height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 8px;
+  font-size: 0.82rem;
+}
+
+.root-entry span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.root-entry strong {
+  color: var(--blue);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.control-chip {
+  min-height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  padding: 0 4px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 1px 0 #fff inset, 0 2px 0 #d5d8de;
+}
+
+.control-chip.active {
+  color: #fff;
+  background: linear-gradient(180deg, #5ed6f6, #1aa6d6);
+  border-color: #1489b4;
+  box-shadow: 0 2px 0 #0e6e94;
+}
+
+@media (max-width: 1120px) {
+  .wii-dock {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px 12px 10px;
+  }
+
+  .dock-transport {
+    order: 3;
+    flex: 1 0 100%;
+  }
+
+  .crt-set {
+    width: min(100%, 900px);
+    max-height: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .wii-clock {
+    display: none;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+
+  .topbar-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .play-area {
+    padding: 12px;
+  }
+
+  .crt-set {
+    min-width: 0;
+    padding: 10px 10px 8px;
+  }
+
+  .crt-bezel {
+    padding: 10px;
+  }
+
+  .screen-osd {
+    top: 7px;
+    left: 7px;
+  }
+
+  .screen-osd span {
+    min-height: 22px;
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+
+  .transport {
+    grid-template-columns: repeat(3, minmax(74px, 1fr));
+  }
+
+  .touch-controls {
+    display: grid;
+  }
+
+  .control-panel {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .setting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .control-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 470px) {
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .brand {
+    gap: 9px;
+  }
+
+  .mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .status-pill {
+    max-width: 112px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icon-button {
+    min-width: 40px;
+    padding-inline: 8px;
+  }
+
+  .transport,
+  .settings-actions,
+  .toggle-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .touch-controls {
+    gap: 8px;
+  }
+
+  .touch-dpad {
+    grid-template-columns: repeat(3, 42px);
+    grid-template-rows: repeat(3, 42px);
+  }
+
+  .touch-dpad button,
+  .touch-face button {
+    min-height: 42px;
+    padding: 0;
+    font-size: 0.78rem;
+  }
+}
+
+/* ---- Retro transport: icon buttons, hover tooltips ------------------ */
+
+/* The transport reads as console hardware rather than a web toolbar:
+   inset well, chunky keys, warm amber legends. Icons carry the meaning and
+   every control keeps an accessible name, so screen readers are unaffected. */
+.transport {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  gap: 8px;
+  align-items: center;
+}
+
+.transport button,
+.transport .file-button,
+.dock-transport button,
+.dock-transport .file-button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid #c5c9d0;
+  background: linear-gradient(180deg, #ffffff, #e8ebf0);
+  box-shadow: 0 2px 0 #c0c4cc, inset 0 1px 0 #fff;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 80ms ease, box-shadow 80ms ease, background 120ms ease;
+}
+
+.transport button:hover,
+.transport .file-button:hover,
+.dock-transport button:hover,
+.dock-transport .file-button:hover {
+  background: linear-gradient(180deg, #ffffff, #eef6fb);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(62, 198, 240, 0.3), 0 2px 0 #c0c4cc, inset 0 1px 0 #fff;
+}
+
+/* Keys physically depress rather than just changing colour. */
+.transport button:active,
+.transport .file-button:active,
+.dock-transport button:active,
+.dock-transport .file-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #c0c4cc, inset 0 2px 5px rgba(40, 50, 60, 0.18);
+}
+
+.transport button:focus-visible,
+.transport .file-button:focus-visible,
+.dock-transport button:focus-visible,
+.dock-transport .file-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.transport .glyph,
+.dock-transport .glyph {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--cyan-deep);
+  text-shadow: none;
+}
+
+.transport .btn-text,
+.dock-transport .btn-text {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Divider between machine controls and save-state controls. */
+.transport-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 2px 4px;
+  background: linear-gradient(180deg, transparent, var(--line), transparent);
+}
+
+/* ---- Tooltips ------------------------------------------------------- */
+
+/* CSS-only, driven by data-tip. Hidden from assistive tech (aria-label
+   already carries the name) and suppressed for touch, where there is no
+   hover and the bubble would stick after a tap. */
+.tip {
+  position: relative;
+}
+
+.tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+  padding: 5px 9px;
+  border: 1px solid #c5c9d0;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 110ms ease, transform 110ms ease;
+  box-shadow: 0 6px 16px rgba(40, 50, 60, 0.18);
+  z-index: 20;
+}
+
+.tip:hover::after,
+.tip:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (hover: none) {
+  .tip::after { display: none; }
+}
+
+/* The side panel clips overflow-x so a document scrollbar never appears.
+   Long tips (Auto per-game) must wrap inside the column instead of
+   stretching the panel's scroll width. */
+.control-panel .tip::after {
+  max-width: 220px;
+  white-space: normal;
+  text-align: center;
+}
+
+/* ---- Collapsible settings ------------------------------------------ */
+
+.section-heading {
+  align-items: center;
+}
+
+.collapse-toggle {
+  margin-left: auto;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+  transition: transform 140ms ease, color 120ms ease, background 120ms ease;
+}
+
+.collapse-toggle:hover {
+  background: var(--button-hover);
+  color: var(--text);
+}
+
+.collapse-toggle.collapsed .glyph {
+  transform: rotate(-90deg);
+}
+
+.collapse-toggle .glyph {
+  display: block;
+  line-height: 1;
+  transition: transform 140ms ease;
+}
+
+.collapse-toggle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---- Bezel LCD strip ------------------------------------------------ */
+
+/* Segment-display readout moulded into the top of the bezel. Carries the
+   game identity so the side panel can be hidden entirely. Monospace with
+   wide tracking reads as a calculator/VCR display; the faint underlay is the
+   unlit-segment glow those panels always have. */
+.lcd-strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto 10px;
+  padding: 6px 16px;
+  max-width: calc(100% - 24px);
+  min-height: 26px;
+  border: 1px solid #0c0e12;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #1b1d22, #0b0c0e);
+  box-shadow:
+    0 0 0 3px #e4e7ed,
+    0 0 14px rgba(62, 198, 240, 0.55),
+    inset 0 2px 8px rgba(0, 0, 0, 0.85);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+.slot-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 8px;
+  pointer-events: none;
+  box-shadow: 0 0 12px 2px rgba(62, 198, 240, 0.7);
+  animation: slotPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes slotPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.lcd-title {
+  position: relative;
+  color: #bfefff;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 8px rgba(62, 198, 240, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lcd-meta {
+  position: relative;
+  margin-left: auto;
+  color: #7ecde8;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+/* ---- Volume dial ---------------------------------------------------- */
+
+/* A real range input under a drawn face: keyboard, screen-reader and drag
+   behaviour come free, and the knob rotation is driven from its value. The
+   input is transparent rather than display:none so it stays focusable. */
+.volume-dial {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+}
+
+.volume-dial input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ns-resize;
+  z-index: 2;
+}
+
+.dial-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ffffff, #d5d8de 62%, #c2c6ce);
+  border: 1px solid #b4b8c0;
+  box-shadow: 0 2px 4px rgba(40, 50, 60, 0.25), inset 0 1px 0 #fff;
+  transform: rotate(var(--angle, 135deg));
+  transition: transform 90ms ease;
+}
+
+/* The pointer line. */
+.dial-face i {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  width: 2px;
+  height: 11px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--cyan-deep);
+  box-shadow: 0 0 5px rgba(62, 198, 240, 0.7);
+}
+
+.volume-dial input:focus-visible + .dial-face {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ---- Panel hidden --------------------------------------------------- */
+
+/* With the panel gone the workspace collapses to a single column so the CRT
+   takes the reclaimed width. */
+body.panel-hidden .workspace {
+  grid-template-columns: 1fr;
+}
+
+#panelToggle {
+  min-width: 54px;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+#panelToggle.active {
+  border-color: var(--cyan-deep);
+  color: var(--cyan-deep);
+}
+
+/* ---- Transport condensed into the console footer -------------------- */
+
+/* Inside the footer the transport loses its own well and border: the bezel is
+   already the container. Keys shrink to icon size and the row scrolls rather
+   than wrapping, so the footer stays one line at narrow widths. */
+.crt-footer .transport {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.crt-footer .transport::-webkit-scrollbar { display: none; }
+
+.crt-footer .transport button,
+.crt-footer .transport .file-button {
+  min-width: 34px;
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 6px;
+}
+
+.crt-footer .transport .glyph {
+  font-size: 14px;
+}
+
+/* The disc key keeps its word; at narrow widths the icon alone is enough. */
+.crt-footer .transport .btn-text {
+  font-size: 10px;
+}
+
+@media (max-width: 900px) {
+  .crt-footer .transport .btn-text { display: none; }
+}
+
+.crt-footer .transport-sep {
+  margin: 2px;
+}
+
+/* ---- Aspect selector ------------------------------------------------ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.aspect-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.aspect-select select {
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #c5c9d0;
+  background: linear-gradient(180deg, #ffffff, #e8ebf0);
+  color: var(--cyan-deep);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #c0c4cc, inset 0 1px 0 #fff;
+}
+
+.aspect-select select:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---- Fullscreen ----------------------------------------------------- */
+
+/* The bezel fills the display and the screen is fitted inside it rather than
+   stretched: width is the smaller of the display width and the width implied
+   by the display height at the chosen ratio, so it letterboxes or pillarboxes
+   correctly on any monitor instead of assuming 16:9. dvh, not vh, so mobile
+   browser chrome does not push the bottom off-screen. */
+.crt-set:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100dvh;
+  padding: 0;
+  border-radius: 0;
+  background: #000;
+}
+
+.crt-set:fullscreen .crt-bezel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+  box-shadow: none;
+}
+
+.crt-set:fullscreen .screen-viewport {
+  width: min(100vw, calc(100dvh * var(--aspect-w) / var(--aspect-h)));
+  height: auto;
+  max-width: 100vw;
+  max-height: 100dvh;
+  border: 0;
+  border-radius: 0;
+}
+
+/* Chrome is hidden in fullscreen so the picture gets the whole display. */
+.crt-set:fullscreen .lcd-strip,
+.crt-set:fullscreen .crt-footer,
+.crt-set:fullscreen .channel-banner,
+.crt-set:fullscreen .disc-idle,
+.crt-set:fullscreen .channel-start,
+.crt-set:fullscreen .drop-badge {
+  display: none;
+}
+
+/* ---- Wii Menu dock -------------------------------------------------- */
+
+.wii-dock {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 92px;
+  padding: 8px 28px 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(170, 176, 186, 0.28));
+}
+
+.wii-dock::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 0;
+  height: 4px;
+  border-radius: 100%;
+  background: linear-gradient(90deg, transparent, #7fe0f8 18%, #3ec6f0 50%, #7fe0f8 82%, transparent);
+  box-shadow: 0 0 18px rgba(62, 198, 240, 0.85);
+}
+
+.wii-home-btn {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #5a5e66;
+  background: linear-gradient(180deg, #ffffff, #e7eaef);
+  border: 1px solid #c5c9d0;
+  box-shadow: 0 4px 0 #c0c4cc, inset 0 1px 0 #fff;
+}
+
+.wii-home-btn:hover,
+.wii-home-btn.active {
+  color: var(--cyan-deep);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 4px rgba(62, 198, 240, 0.35), 0 4px 0 #c0c4cc, inset 0 1px 0 #fff;
+}
+
+.dock-transport {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.dock-transport::-webkit-scrollbar { display: none; }
+
+.dock-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.wii-dock .wii-clock {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 110px;
+  pointer-events: none;
+}
+
+.wii-dock .wii-clock strong {
+  font-size: 1.45rem;
+}
+
+/* ---- Disc Channel empty stage --------------------------------------- */
+
+.disc-channel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  width: min(100%, 1080px) !important;
+  padding: 0 0 16px;
+  overflow: hidden;
+}
+
+.disc-channel .screen-viewport {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 22px;
+  display: grid;
+  place-items: center;
+}
+
+body:not(.has-disc) .disc-channel .screen-viewport {
+  aspect-ratio: auto;
+  width: auto;
+  border: 0;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(200, 210, 220, 0.28));
+  box-shadow: none;
+}
+
+body:not(.has-disc) #screen,
+body:not(.has-disc) .screen-osd {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.has-disc .disc-idle,
+body.has-disc .channel-start,
+body.has-disc .drop-badge {
+  display: none;
+}
+
+body.has-disc .disc-channel .screen-viewport {
+  aspect-ratio: var(--aspect-w, 4) / var(--aspect-h, 3);
+  width: min(100%, calc((100dvh - var(--crt-chrome, 210px)) * var(--aspect-w, 4) / var(--aspect-h, 3)));
+  flex: 0 1 auto;
+  margin-inline: auto;
+}
+
+.disc-idle {
+  position: absolute;
+  inset: 0 0 22% 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: min(6vw, 48px);
+  pointer-events: none;
+}
+
+.disc {
+  position: relative;
+  width: min(26vw, 210px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 18px 30px rgba(40, 50, 60, 0.22);
+  animation: discSpin 9s linear infinite;
+}
+
+.disc i {
+  position: absolute;
+  inset: 36%;
+  border-radius: 50%;
+  background: #e8eaee;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.disc-wii {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 35%, rgba(255, 255, 255, 0.35) 36% 38%, transparent 39%),
+    conic-gradient(from 20deg, #d5dde4, #ffffff, #9aa7b3, #ffffff, #d5dde4);
+  box-shadow: 0 0 0 7px #3ec6f0, 0 18px 30px rgba(40, 50, 60, 0.22);
+}
+
+.disc-gc {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 35%, rgba(255, 255, 255, 0.2) 36% 38%, transparent 39%),
+    conic-gradient(from 200deg, #4b3c86, #8d7ec8, #2f245c, #8d7ec8);
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+@keyframes discSpin {
+  to { transform: rotate(360deg); }
+}
+
+.channel-start {
+  position: absolute;
+  left: 50%;
+  bottom: 58px;
+  transform: translateX(-50%);
+  z-index: 3;
+  min-height: 42px;
+  padding: 0 28px;
+  border-radius: 999px;
+  border: 1px solid #c5c9d0;
+  background: linear-gradient(180deg, #ffffff, #e8ebf0);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 3px 0 #c0c4cc, inset 0 1px 0 #fff;
+  cursor: pointer;
+}
+
+.channel-start:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(62, 198, 240, 0.3), 0 3px 0 #c0c4cc, inset 0 1px 0 #fff;
+}
+
+body:not(.has-disc) .drop-badge {
+  bottom: 110px;
+}
+
+@media (max-width: 760px) {
+  .wii-dock .wii-clock {
+    display: none;
+  }
+
+  .wii-home-btn {
+    width: 58px;
+    height: 58px;
+    font-size: 1.1rem;
+  }
+
+  .disc {
+    width: min(34vw, 140px);
+  }
+
+  .channel-banner {
+    font-size: 1.05rem;
+    margin-top: 10px;
+  }
+}

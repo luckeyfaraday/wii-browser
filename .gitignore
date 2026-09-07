@@ -1,0 +1,21 @@
+# Disc images & copyrighted game data — never commit these
+*.iso
+*.rvz
+*.ciso
+*.gcm
+*.wbfs
+*.wia
+*.wad
+*.dol
+*.elf
+
+# Local agent/tooling state
+.context-workspace/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS cruft
+Thumbs.db
+.DS_Store
